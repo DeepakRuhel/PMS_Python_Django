@@ -1,0 +1,92 @@
+﻿{% extends 'Layout.html' %}
+
+{% block main_content %}
+<!--topbar-->
+<style>
+    .card-header .form-check.form-switch {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px;
+    }
+
+    .card-body .form-check.form-switch {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 50px 0px 0px;
+        width: 100%;
+    }
+    .permissionBody{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+    }
+</style>
+<header id="page-topbar">
+    {% load static %}
+    <div class="layout-width">
+        <div class="navbar-header  justify-content-between align-items-center">
+            <!-- LOGO -->
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-dark.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-light.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item ms-3">Setup</div> <div class="breadcrumb-item">Role and Permission</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center">
+                 <div class="page-button d-flex justify-content-end align-items-center">
+                   <div class="d-flex flex-column align-items-end m-1 mb-0">
+                        <a href="view_Role" class="btn btn-sm btn-light">Back</a>
+                   </div>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--end of topbar-->
+<div class="row" id="main_content">
+    <!-- Dynamic content will be inserted here -->
+</div>
+
+<script src="{% static 'js/RolePermission/RolePermission.js' %}"></script>
+<!--<script type="text/javascript">-->
+<!--    -->
+<!--</script>-->
+{% endblock %}
+

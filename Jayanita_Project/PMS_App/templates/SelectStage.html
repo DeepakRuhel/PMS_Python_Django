@@ -1,0 +1,231 @@
+﻿{% extends 'Layout.html' %}
+
+{% block main_content %}
+
+<header id="page-topbar">
+     {% load static %}
+    <div class="layout-width">
+        <div class="navbar-header  justify-content-between align-items-center">
+            <!-- LOGO -->
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-dark.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-light.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item ms-3">Setup</div> <div class="breadcrumb-item">Select Stage</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center">
+                <div class="page-button d-flex justify-content-end align-items-center">
+                    <div class="d-flex flex-column align-items-end m-1 mb-0">
+                        <a href="view_List" class="btn btn-sm btn-light">Back</a>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button href="ListStageUser" class="btn btn-sm btn-primary" onclick="OpenAddUser()">Add User</button>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal"  class="btn btn-sm btn-warning" onclick="openEditModal()" id="editbutton">Edit</button>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpenAddEdit" class="btn btn-sm btn-success" onclick="openAddModal()">Add</button>
+                    </div>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--end of topbar-->
+<div class="row">
+    <div class="col-lg-12 col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="row m-0 p-0">
+                    <div class="col-lg-4 col-12">
+                        <div class="h6 mb-1 cardheadcontent">
+                            <span>Sub Space Name</span>
+                            <h2 id="SubSpaceName">Order_Kanban</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <div class="h6 mb-1 cardheadcontent">
+                            <span>Sub Space Code</span>
+                            <h2 id="SubSpaceCode">Order_Kanban</h2>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-12">
+                        <div class="h6 mb-1 cardheadcontent">
+                            <span>Sub Space Description</span>
+                            <h2 id="SubSpaceDiscription">Order_Kanban Department</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-1">
+                <div class="table-responsive">
+
+
+                    <div id="myLead_master" class="ag-theme-balham" style="height: 70vh">
+
+                    </div>
+
+                    <!--end table-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade myMOdalOpenAddEdit" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">
+                    Edit
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <input type="number" id="IId" style="display:none;">
+            <div class="modal-body">
+                <form id="AddEditSpaceListStage" class="needs-validation" novalidate>
+                    <!-- Category Name -->
+
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="SpaceListId">SpaceList:</label>
+                            <select class="form-select" id="SpaceListId" name="SpaceListId" required="">
+                                <option value="">Select SpaceList</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="IsLinkToTask">IsLinkToTask:</label>
+                            <input type="checkbox" id="IsLinkToTask" name="IsLinkToTask" class="form-check-input"  value="">
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="InOrder">inOrder:</label>
+                            <input type="number" id="InOrder" name="InOrder" class="form-control" placeholder="Enter Order Number" required="" value="">
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="StageId">Stage:</label>
+                            <select class="form-select" id="StageId" name="StageId" required="">
+                                <option value="">Select Stage</option>
+
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="Remark">Remark:</label>
+                            <input type="text" id="Remark" name="Remark" class="form-control" placeholder="Enter Sub Space Description" required="" value="">
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12 mb-3">
+                            <label class="form-label mb-2 fw-bold" for="TemplateId">Template ID:</label>
+                            <select class="form-select" id="TemplateId" name="TemplateId" required="">
+                                <option value="">Select Template</option>
+
+                            </select>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label class="form-label">Status:</label>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inOrder" id="activeOrder" value="active" >
+                                        <label class="form-check-label" for="activeOrder">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inOrder" id="inactiveOrder" value="inactive">
+                                        <label class="form-check-label" for="inactiveOrder">
+                                            Inactive
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please select the status.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
+                            <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="csrfmiddlewaretoken" value={ csrf_token }  />
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'js/spaceListStage/spaceListStage.js' %}"></script>
+
+
+
+
+
+
+
+<!--<script type="text/javascript">-->
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+<!--        const spaceId = document.getElementById('spaceId');-->
+<!--        const EditspaceId = document.getElementById('EditspaceId');-->
+<!--        const optionalFields = document.getElementById('optionalFields');-->
+<!--        const EditoptionalFields = document.getElementById('EditoptionalFields');-->
+
+<!--        spaceId.addEventListener('change', function () {-->
+<!--            if (spaceId.value === 'Space2') {-->
+<!--                optionalFields.style.display = 'flex';-->
+<!--            } else {-->
+<!--                optionalFields.style.display = 'none';-->
+<!--            }-->
+<!--        }); EditspaceId.addEventListener('change', function () {-->
+<!--            if (EditspaceId.value === 'Space2') {-->
+<!--                EditoptionalFields.style.display = 'flex';-->
+<!--            } else {-->
+<!--                EditoptionalFields.style.display = 'none';-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+{% endblock %}

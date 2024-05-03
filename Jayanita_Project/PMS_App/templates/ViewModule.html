@@ -1,0 +1,665 @@
+﻿{% extends 'Layout.html' %}
+
+{% block main_content %}
+<header id="page-topbar">
+    {% load static %}
+    <div class="layout-width">
+        <div class="navbar-header  justify-content-between align-items-center">
+            <!-- LOGO -->
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-dark.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="{% static 'images/logo-light.svg' %}" alt="" height="17">
+                        </span>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item ms-3">Setup</div> <div class="breadcrumb-item">Module</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center">
+                <div class="page-button d-flex justify-content-end align-items-center">
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" class="btn btn-sm btn-warning" onclick="openEditModal()" id="editbutton">Edit</button>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpen" class="btn btn-sm btn-success" onclick="openAddModal()">Add</button>
+                    </div>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--end of topbar-->
+<div class="row">
+    <div class="col-lg-12 col-12">
+        <div class="card">
+            <div class="card-body p-1">
+                <div class="table-responsive">
+
+                    <div id="myLead_master" class="ag-theme-balham" style="height: 70vh">
+
+                    </div>
+
+                    <!--end table-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade myMOdalOpen" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel">
+                    Add
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="moduleForm" class="needs-validation" novalidate>
+                    <!-- Category Name -->
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="mb-3">
+                                <label for="AModulecategory" class="form-label">Module Category:</label>
+                                <select class="form-select" id="AModulecategory" name="AModulecategory" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please enter the Module Category.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="ACode" class="form-label">Code:</label>
+                                <input type="text" class="form-control" id="ACode" name="ACode" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Code.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="AModuleName" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="AModuleName" name="AModuleName" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Routing Link.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Icon -->
+                            <div class="mb-3">
+                                <label for="addl" class="form-label">Icon:</label>
+                                <select class="form-select" id="addl" name="addl" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select an Icon.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="AroutingLink" class="form-label">Routing Link:</label>
+                                <input type="text" class="form-control" id="AroutingLink" name="AroutingLink" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Routing Link.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="AinOrder" class="form-label">Order:</label>
+                                <input type="text" class="form-control" id="AinOrder" name="AinOrder" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Order.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
+                            <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                    <input type="hidden" name="csrfmiddlewaretoken" value={ csrf_token }  />
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade myMOdalOpenEdit" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myExtraLargeModalLabel1">
+                    Edit
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editmoduleForm" class="needs-validation" novalidate>
+                    <!-- Category Name -->
+                    <div class="form-group row">
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="mb-3">
+                                <label for="EModulecategory" class="form-label">Module Category:</label>
+                                <select class="form-select" id="EModulecategory" name="EModulecategory" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please enter the Module Category.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="ECode" class="form-label">Code:</label>
+                                <input type="text" class="form-control" id="ECode" value="Ecode" name="Code" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Code.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="EModuleName" class="form-label">Name:</label>
+                                <input type="text" class="form-control" id="EModuleName" value="EName" name="Name" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Routing Link.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Icon -->
+                            <div class="mb-3">
+                                <label for="eddl" class="form-label">Icon:</label>
+                                <select class="form-select" id="eddl" name="Eicon" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please select an Icon.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="EroutingLink" class="form-label">Routing Link:</label>
+                                <input type="text" class="form-control" id="EroutingLink" value="/module" name="EroutingLink" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Routing Link.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label for="EinOrder" class="form-label">Order:</label>
+                                <input type="text" class="form-control" id="EinOrder" value="2" name="EinOrder" required>
+                                <div class="invalid-feedback">
+                                    Please enter the Order.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-4 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3">
+                                <label class="form-label">Status:</label>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inOrder" id="activeOrder" value="active" required>
+                                        <label class="form-check-label" for="activeOrder">
+                                            Active
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inOrder" id="inactiveOrder" value="inactive">
+                                        <label class="form-check-label" for="inactiveOrder">
+                                            Inactive
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    Please select the status.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
+                            <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!--<script src="{% static 'js/main.js' %}"></script>-->
+<script type="text/javascript">
+     //.....##############################.....module js code........#########################################
+    let editbutton=document.getElementById('editbutton');
+    var selectedRowData;
+    var gridOptions;
+    // Function to handle row click event in AG Grid
+    function onRowClicked(event) {
+    debugger;
+        // Get the selected row data
+        selectedRowData = event.data;
+        console.log(selectedRowData);
+    }
+
+    // Function to open the edit modal and pre-fill fields with selected row data
+    function openEditModal() {
+    debugger;
+        // Check if a row is selected
+        if (selectedRowData) {
+            // Pre-fill the edit form fields with the selected row data
+            $('#id').val(selectedRowData.id);
+            $('#EModulecategory').val(selectedRowData.moduleCategoryID);
+            $('#ECode').val(selectedRowData.code);
+            $('#EModuleName').val(selectedRowData.moduleName);
+            $('#eddl').val(selectedRowData.moduleIconUrl);
+            $('#EroutingLink').val(selectedRowData.routingPage);
+            $('#EinOrder').val(selectedRowData.sortOrder);
+             // Pre-select the checkbox based on the value of "isActive"
+            $('#activeOrder').prop('checked', selectedRowData.isActive);
+            $('#inactiveOrder').prop('checked', !selectedRowData.isActive);
+            // Open the edit modal
+            $('.myMOdalOpenEdit').modal('show');
+        } else {
+            alert('Please select a row to edit.');
+        }
+    }
+
+    // Function to clear form fields after saving data
+    function clearFormFields() {
+        // Clear form fields for adding data
+        $('#moduleForm input[type=text], #moduleForm textarea').val('');
+        $('#moduleForm input[type=checkbox]').prop('checked', false);
+
+        // Clear form fields for editing data
+        $('#EditmoduleForm input[type=text], #EditmoduleForm textarea').val('');
+        $('#EditmoduleForm input[type=checkbox]').prop('checked', false);
+
+        // Set dropdown to default option
+        $('#eddl').prop('selectedIndex', 0);
+    }
+
+    function openAddModal(){
+    clearFormFields()
+    }
+
+    // Function to fetch data and update AG Grid
+    function fetchDataAndUpdateGrid() {
+        // Make an AJAX request to fetch the data from your API
+        debugger;
+        let options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem('token_') // Include token in the request headers
+            },
+        };
+        fetch('/pms/Module', options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Check if data is empty or null
+            if (!data || data.length === 0) {
+                console.error('Fetched data is empty or null.');
+                return;
+            }
+            // Set new row data to the existing grid
+            gridOptions.api.setRowData(data);
+        })
+        .catch(error => {
+            console.error('Error fetching or setting data:', error);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize AG Grid
+        const gridDiv = document.querySelector('#myLead_master');
+        gridOptions = {
+            columnDefs: [
+
+                { headerName: 'ModuleCategory', field: 'moduleCategoryName' },
+                { headerName: 'Name', field: 'moduleName' },
+                { headerName: 'Routing Page', field: 'routingPage' },
+                { headerName: 'Icon URL', field: 'moduleIconUrl' },
+                { headerName: 'SortOrder URL', field: 'sortOrder' },
+                { headerName: 'Created By', field: 'createdByName' },
+                { headerName: 'Created On', field: 'createdOn' },
+                { headerName: 'Updated By', field: 'updatedByName' },
+                { headerName: 'Updated On', field: 'updatedOn' },
+                { headerName: 'Active', field: 'isActive' }
+            ],
+            defaultColDef: {
+                flex: 1,
+                minWidth: 130,
+                editable: false,
+                resizable: true,
+                sortable: true,
+                filter: true,
+                floatingFilter: true,
+                enableValue: true,
+                enableRowGroup: true,
+                enablePivot: true,
+            },
+            rowSelection: 'multiple',
+            animateRows: true,
+            onRowClicked: onRowClicked // Attach row click event handler
+        };
+        new agGrid.Grid(gridDiv, gridOptions);
+
+        // Call the function to fetch data and initialize AG Grid
+        fetchDataAndUpdateGrid();
+    });
+
+    // Event listener for form submission
+    $('#moduleForm').submit(function (e) {
+       debugger;
+        //Check if the form is valid
+        if (!this.checkValidity()) {
+            e.preventDefault(); // Prevent form submission if it's not valid
+            e.stopPropagation();
+        this.classList.add('was-validated');
+        } else {
+
+            addModule(e)
+        }
+    });
+    function addModule(e){
+        debugger;
+        e.preventDefault();
+        var localStorageData = JSON.parse(localStorage.getItem('id'));
+        var currentDate = new Date().toISOString();
+        const payload = {
+            "moduleCategoryID":$('#AModulecategory').val(),
+            "code":$('#ACode').val(),
+            "moduleName": $('#AModuleName').val(),
+            "routingPage": $('#AroutingLink').val(),
+            "moduleIconUrl": $('#addl').val(),
+            "sortOrder": $('#AinOrder').val(),
+            "createdBy": localStorage.getItem('id'),
+            "createdOn": currentDate,
+            "isActive": false
+        };
+
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        // Make fetch request
+        fetch('/pms/AddModules/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+                "Authorization": localStorage.getItem('token_') // Include token in the request headers
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            alert(jsonData.Msg);
+            console.log(jsonData.Msg);
+            console.log('Updating AG Grid...');
+            // Update the AG Grid after successful save
+            fetchDataAndUpdateGrid();
+
+        })
+        .catch(function(error) {
+            console.error('Error submitting form:', error);
+        });
+    }
+
+    // Event listener for edit form submission
+    $('#editmoduleForm').submit(function (e) {
+         debugger;
+        //Check if the form is valid
+        if (!this.checkValidity()) {
+            e.preventDefault(); // Prevent form submission if it's not valid
+            e.stopPropagation();
+        this.classList.add('was-validated');
+        } else {
+            editModule(e)
+        }
+    });
+    function editModule(e){
+        debugger;
+        e.preventDefault();
+        var currentDate = new Date().toISOString();
+        const payload = {
+            "id":selectedRowData.id,
+            "moduleCategoryID": $('#EModulecategory').val(),
+            "code": $('#ECode').val(),
+            "moduleName": $('#EModuleName').val(),
+            "routingPage": $('#EroutingLink').val(),
+            "moduleIconUrl": $('#eddl').val(),
+            "sortOrder": $('#EinOrder').val(),
+            "updatedBy": localStorage.getItem('id'),
+            "updatedOn": currentDate,
+            "isActive":$('input[name="inOrder"]:checked').val() === 'active',
+        };
+
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        // Make fetch request
+        fetch('/pms/AddModules/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+                "Authorization": localStorage.getItem('token_') // Include token in the request headers
+            },
+            body: JSON.stringify(payload)
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(jsonData) {
+            alert(jsonData.Msg);
+            console.log(jsonData.Msg);
+            console.log('Updating AG Grid...');
+
+            // Update the AG Grid after successful edit
+            fetchDataAndUpdateGrid();
+            fetchModuleCategoryDropdown($('#moduleCategoryID').val());
+        })
+        .catch(function(error) {
+            console.error('Error submitting edit form:', error);
+        });
+    }
+
+// Function to fetch data for the icon dropdown
+function fetchIconDataAndPopulateDropdown() {
+    // Make an AJAX request to fetch the data from your API
+    fetch('/pms/LookupData/?type=FaFaIcon')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Check if data is empty or null
+        console.log(data);
+        if (!data || data.length === 0) {
+            console.error('Fetched data is empty or null.');
+            return;
+        }
+        let selectElement = document.getElementById('addl');
+
+        // Clear existing options
+        selectElement.innerHTML = '<option value="">Select Option</option>';
+
+        // Populate dropdown with fetched data
+        data.forEach(item => {
+            let option = document.createElement('option');
+            option.value = item.code; // Set the value attribute to the code value
+            option.text = item.code; // Set the text content of the option to the code value
+            selectElement.appendChild(option);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching icon data:', error);
+    });
+}
+fetchIconDataAndPopulateDropdown();
+
+
+// Function to populate the dropdown options
+function populateDropdown(selectId, selectedCode) {
+    fetch('/pms/LookupData/?type=FaFaIcon')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        if (!data || data.length === 0) {
+            console.error('Fetched data is empty or null.');
+            return;
+        }
+        let selectElement = document.getElementById(selectId);
+        selectElement.innerHTML = '<option value="">Select Option</option>';
+
+        data.forEach(item => {
+            let option = document.createElement('option');
+            option.value = item.code;
+            option.text = item.code;
+            selectElement.appendChild(option);
+        });
+
+        if (selectedCode) {
+            selectElement.value = selectedCode;
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching icon data:', error);
+    });
+}
+
+// Call the function to populate the add dropdown
+populateDropdown('addl', null);
+
+// Call the function to populate the edit dropdown with a selected code
+populateDropdown('eddl', $('#addl').val()); // Pass the selected code if needed
+
+
+// Function to fetch data for the ModuleCategory dropdown
+function fetchModuleCategoryDropdown(selectId, selectedCode) {
+    debugger;
+    // Make an AJAX request to fetch the data from your API
+    let options = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": localStorage.getItem('token_') // Include token in the request headers
+        },
+    };
+    fetch('/pms/MCategory', options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Check if data is empty or null
+            console.log(data);
+            if (!data || data.length === 0) {
+                console.error('Fetched data is empty or null.');
+                return;
+            }
+            let selectElement = document.getElementById(selectId);
+            selectElement.innerHTML = '<option value="">Select Option</option>';
+
+            // Clear existing options
+            selectElement.innerHTML = '<option value="">Select Option</option>';
+
+            // Populate dropdown with fetched data
+            data.forEach(item1 => {
+                let option = document.createElement('option');
+                option.value = item1.id; // Set the value attribute to the code value
+                option.text = item1.name; // Set the text content of the option to the code value
+                if (item1.id == selectedCode) { // Check if current option matches selectedCode
+                    option.selected = true; // Set the selected attribute
+                }
+                selectElement.appendChild(option);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching icon data:', error);
+        });
+}
+
+fetchModuleCategoryDropdown('AModulecategory', null);
+fetchModuleCategoryDropdown('EModulecategory', $('#EModulecategory').val());
+</script>
+{% endblock %}

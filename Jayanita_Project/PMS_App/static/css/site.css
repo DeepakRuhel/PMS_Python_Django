@@ -1,0 +1,59 @@
+﻿.breadcrumb {
+    margin-bottom: 0px !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.mySearchbox {
+    padding: 15px;
+}
+.breadcrumb-item {
+    color: #e9ebec;
+}
+.simplebar-content-wrapper{
+    max-height:90%!important;
+}
+.header-item.topbar-user {
+    position: fixed;
+    bottom: 3px;
+    width: 10.5vw;
+}
+.myProfile{
+    display:block;
+}
+
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .myProfile {
+    display: none;
+}
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .header-item.topbar-user {
+    position: fixed;
+    bottom: 10px;
+    width: 2.6vw;
+    margin-left: 9px !important;
+}
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .header-item.topbar-user button {
+    padding-left:10px;
+}
+.logoBox img.img-fluid {
+    max-width: 200px;
+}
+
+.logoBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.nav-item:hover .collapse.menu-dropdown {
+    overflow-y: auto;
+    max-height: 300px;
+}
+
+.cardheadcontent{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    border:1px solid #559900;
+    border-radius:5px;
+}
