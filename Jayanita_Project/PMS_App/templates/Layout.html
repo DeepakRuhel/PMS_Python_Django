@@ -7,6 +7,7 @@
     {% load static %}
     <script src="{% static 'js/layout.js' %}"></script>
     <link href="{% static 'css/app.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/customField.css' %}" rel="stylesheet" />
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/custom.min.css' %}" rel="stylesheet" />
     <link href="{% static 'css/icons.min.css' %}" rel="stylesheet" />
@@ -18,6 +19,7 @@
     <link href="{% static 'libs/jsvectormap/css/jsvectormap.min.css' %}" rel="stylesheet" type="text/css" />
     <!--Swiper slider css-->
     <link href="{% static 'libs/swiper/swiper-bundle.min.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 
 
 </head>
@@ -33,7 +35,7 @@
             <!-- LOGO -->
             <div class="navbar-brand-box">
                 <!-- Dark Logo-->
-                <a href="index.html" class="logo logo-dark">
+                <a href="dashbord" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static 'images/Deco-logo.png' %}" alt="" height="22">
                     </span>
@@ -42,7 +44,7 @@
                     </span>
                 </a>
                 <!-- Light Logo-->
-                <a href="index.html" class="logo logo-light">
+                <a href="dashbord" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{% static 'images/Deco-logo.png' %}" alt="" height="22">
                     </span>
@@ -84,82 +86,15 @@
                     </div>
                     <div id="two-column-menu">
                     </div>
-                    <ul class="navbar-nav" id="navbar-nav">
-                        <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarDashboards" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDashboards">
-                                <i class="ri-dashboard-2-line"></i> <span data-key="t-dashboards">Setup</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarDashboards">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_module_category' %}" class="nav-link" data-key="View-Module-Category"> Module Category </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_module' %}" class="nav-link" data-key="View-Module"> Module </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Control' %}" class="nav-link" data-key="View-Control"> Control </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Function' %}" class="nav-link" data-key="View-Function"> Function </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Stage' %}" class="nav-link" data-key="View-Stage"> Stage </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Space' %}" class="nav-link" data-key="View-Space"> Space </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_List' %}" class="nav-link" data-key="View-List"> List </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Role' %}" class="nav-link" data-key="View-Role"> Role </a>
-                                    </li>
-<!--                                    <li class="nav-item">-->
-<!--                                        <a asp-controller="ModuleCategory" asp-action="Viewuser" class="nav-link" data-key="View-Role-Permission"> Role & Permission </a>-->
-<!--                                    </li>-->
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_User' %}" class="nav-link" data-key="View-User"> User </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="{% url 'view_Template' %}" class="nav-link" data-key="View-Template"> Template </a>
-                                    </li>
-                                     <li class="nav-item">
-<!--                                        <a href="{% url 'RolePermission' %}" class="nav-link" data-key="RolePermission"> RolePermission </a>-->
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </li> <!-- end Dashboard Menu -->
-
-                        <li class="nav-item">
-                            <a class="nav-link menu-link" href="#sidebarPages" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarPages">
-                                <i class="ri-pages-line"></i> <span data-key="t-pages">Pages</span>
-                            </a>
-                            <div class="collapse menu-dropdown" id="sidebarPages">
-                                <ul class="nav nav-sm flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Pages" asp-action="form" data-key="form"> Form </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Pages" asp-action="double_form_page" data-key="double_form_page"> Double Form </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Pages" asp-action="double_form_page"> MOdal Form </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Pages" asp-action="double_form_page"> Table </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Pages" asp-action="double_form_page"> Header Detail </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-
-                    </ul>
+<!--                    <div class="sidebar">-->
+<!--                        <ul id="sidebar-menu" class="navbar-nav">-->
+<!--                            &lt;!&ndash; Sidebar items will be dynamically added here &ndash;&gt;-->
+<!--                        </ul>-->
+<!--                    </div>-->
+                  <ul class="navbar-nav" id="navbar-nav">
+                    <li class="menu-title"><span data-key="t-menu">Menu</span></li>
+                    <!-- Generated sidebar will be appended here -->
+                </ul>
 
                 </div>
                 <div class="dropdown ms-sm-3 header-item topbar-user">
@@ -176,7 +111,7 @@
                         <!-- item-->
 
                         <h6 class="dropdown-header">Welcome Rakesh!</h6>
-                        <a class="dropdown-item" href="pages-profile.html">
+                        <a class="dropdown-item" href="dashbord">
                             <i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i>
                             <span class="align-middle">Profile</span>
                         </a>
@@ -253,7 +188,6 @@
     </div>
 
     <!--vendor script-->
-    <script src="{% static 'libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'libs/simplebar/simplebar.min.js' %}"></script>
     <script src="{% static 'libs/node-waves/waves.min.js' %}"></script>
     <script src="{% static 'libs/feather-icons/feather.min.js' %}"></script>
@@ -272,47 +206,11 @@
 
     <!-- App js -->
     <script src="{% static 'js/app.js' %}"></script>
+    <script src="{% static 'js/Layout/Layout.js' %}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
 
 <!--    @await RenderSectionAsync("Scripts", required: false)-->
-<script>
-    function logoutFunction(){
-       // Clear all items from localStorage
-        localStorage.clear();
 
-        Cookies.remove('token_');
-        Cookies.remove('id');
-        Cookies.remove('userId');
-        Cookies.remove('name');
-        Cookies.remove('roleId');
-        Cookies.remove('roleName');
-        Cookies.remove('userImage');
-        Cookies.remove('name1');
-        Cookies.remove('userImage1');
-
-        // Redirect the user to the logout URL
-        window.location.href = "logout";
-
-    }
-    debugger;
-    var username = localStorage.getItem("name");
-    var userImage = localStorage.getItem("userImage");
-
-    //If You want to get data from Cookies
-<!--    debugger;-->
-<!--    var Username1 = getCookie("name1");-->
-<!--    var UserImage1 = getCookie("userImage1");-->
-
-
-    var usernamePlaceholder = document.getElementById("username-placeholder");
-    var usernamePlaceholder1 = document.getElementById("username-placeholder1");
-
-    usernamePlaceholder.textContent = username;
-    usernamePlaceholder1.textContent = username;
-
-    var userImageElement = document.getElementById("user_Image");
-    userImageElement.src = userImage;
-</script>
 </body>
 
 </html>

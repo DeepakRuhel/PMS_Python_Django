@@ -3370,7 +3370,7 @@
         }
 
             .navbar-menu .navbar-nav .nav-sm .nav-link:before {
-                content: "";
+
                 width: 6px;
                 height: 1.5px;
                 background-color: var(--vz-vertical-menu-sub-item-color);

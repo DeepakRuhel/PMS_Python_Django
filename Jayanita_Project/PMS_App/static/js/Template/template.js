@@ -1,8 +1,56 @@
 //.....##############################.....template module js code........#########################################
+debugger;
+     const urlParams = new URLSearchParams(window.location.search);
+     const ModuleID = urlParams.get('moduleID');
     let editbutton=document.getElementById('editbutton');
+    let Addbutton=document.getElementById('Addbutton');
+    var RoleId = localStorage.getItem('roleId');
     var selectedRowData;
     var gridOptions;
     var templateId
+
+    function ModuleActionRight(){
+    debugger;
+       // Make an AJAX request to fetch the data from your API
+        debugger;
+        let options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem('token_') // Include token in the request headers
+            },
+        };
+        fetch('/pms/api/Users/ModuleAction?roleId='+RoleId+'&moduleId='+ModuleID, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Check if data is empty or null
+            if (!data || data.length === 0) {
+                console.error('Fetched data is empty or null.');
+                return;
+            }
+            console.log(data);
+            data.forEach(item => {
+              console.log("item",item)
+              if (item.Code=="E" && item.IsApplicable!=true){
+                editbutton.style.display="none"
+              }
+              else if(item.Code=="A" && item.IsApplicable!=true){
+                Addbutton.style.display="none"
+              }
+            })
+        })
+        .catch(error => {
+            console.error('Error fetching or setting data:', error);
+            alert(error.message); // Show the error message in an alert
+        });
+    }
+    ModuleActionRight()
+
     // Function to handle row click event in AG Grid
     function onRowClicked(event) {
     debugger;
@@ -63,10 +111,14 @@
         };
         fetch('/pms/Template', options)
         .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
+           if (!response.ok) {
+            // If response is not OK (status code other than 2xx), handle error
+            return response.json().then(errorResponse => {
+                throw new Error(errorResponse.Msg); // Throw an error with the message from the API response
+            });
+        }
+        console.log(response);
+        return response.json();
         })
         .then(data => {
             // Check if data is empty or null
@@ -79,7 +131,16 @@
         })
         .catch(error => {
             console.error('Error fetching or setting data:', error);
+            alert(error.message); // Show the error message in an alert
         });
+    }
+     // Function to format date to YYYY-MM-DD
+    function formatDate(params) {
+        if (params.value) {
+            const date = new Date(params.value);
+            return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+        }
+        return '';
     }
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -91,9 +152,9 @@
                     { headerName: 'Remark', field: 'remark' },
                     { headerName: 'InputNoInRow', field: 'inputNoInRow' },
                     { headerName: 'Created By', field: 'createdByName' },
-                    { headerName: 'Created On', field: 'createdOn' },
+                    { headerName: 'Created On', field: 'createdOn' ,cellRenderer: formatDate },
                     { headerName: 'Updated By', field: 'updatedByName' },
-                    { headerName: 'Updated On', field: 'updatedOn' },
+                    { headerName: 'Updated On', field: 'updatedOn',cellRenderer: formatDate  },
                     { headerName: 'Active', field: 'isActive' }
             ],
             defaultColDef: {
@@ -108,7 +169,7 @@
                 enableRowGroup: true,
                 enablePivot: true,
             },
-            rowSelection: 'multiple',
+            rowSelection: 'single',
             animateRows: true,
             onRowClicked: onRowClicked // Attach row click event handler
         };
@@ -199,7 +260,7 @@
 
         const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
         // Make fetch request
-        fetch('/pms/AddTemplates/', {
+        fetch('/pms/UpdateTemplates/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -227,10 +288,10 @@ function openTemplateDetailPage(){
 debugger;
   if(selectedRowData){
      // Construct the query string with the spaceListStageData values
-    var queryString = "?id=" + encodeURIComponent(templateId);
+    var queryString = "?id=" + encodeURIComponent(templateId) + "&M=" +ModuleID ;
 
     // Append the query string to the URL of the other page
-    var nextPageUrl = "view_TemplateDetail" + queryString;
+    var nextPageUrl = "all-template-detail" + queryString;
 
     // Redirect to the other page with the query parameters
     window.location.href = nextPageUrl;

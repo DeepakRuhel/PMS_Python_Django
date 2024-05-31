@@ -91,7 +91,7 @@ class login:
 
 #---Menu_Api------
 class menu:
-    def CategoryModuleRightData(request):
+    def  CategoryModuleRightData(request):
         with connection.cursor() as cursor:
             userId = request.GET.get('userId')
             # Call your stored procedure
@@ -141,7 +141,7 @@ class menu:
 class control:
     @staticmethod
     @csrf_exempt
-    @token_required(muduleCode='', functioncode='')
+    @token_required(muduleCode='CNT', functioncode='V')
     def GetControlData(request):
         with connection.cursor() as cursor:
             # Call your stored procedure
@@ -387,7 +387,7 @@ class Space:
 class Role_Permission:
     @staticmethod
     @csrf_exempt
-    @token_required(muduleCode='RLS', functioncode='V')
+    @token_required(muduleCode='ROLEPERM', functioncode='V')
     def GetRolePermissionData(request):
         with connection.cursor() as cursor:
             roleId = request.GET.get('roleId')
@@ -697,9 +697,34 @@ class SpaceListStage:
             response_data = {"MsgFlag": 0, "Msg": f"Error: {str(e)}"}
             return JsonResponse(response_data, status=500)
 
+    @staticmethod
+    @csrf_exempt
+    @token_required(muduleCode='SPLSTSTG', functioncode='E')
+    def EditSpaceListStageData(request):
+        try:
+            InputVal = json.loads(request.body)
+            json_data = json.dumps(InputVal)
+            with connection.cursor() as cursor:
+                cursor.execute("EXEC InsertUpdateSpaceListStages @jsonData=%s", [json_data])
+                result = cursor.fetchone()
+                print(result)
+                print(result[0])
+                if result[0] == 1:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=200)
+                else:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=500)
+        except Exception as e:
+            response_data = {"MsgFlag": 0, "Msg": f"Error: {str(e)}"}
+            return JsonResponse(response_data, status=500)
 
 #---Template_Api------
+
 class Template:
+    @staticmethod
+    @csrf_exempt
+    @token_required(muduleCode='TPLT', functioncode='V')
     def GetTemplateData(request):
         with connection.cursor() as cursor:
             # Call your stored procedure
@@ -721,8 +746,32 @@ class Template:
             ]
         return JsonResponse(formatted_response, safe=False)
 
+    @staticmethod
     @csrf_exempt
+    @token_required(muduleCode='TPLT', functioncode='A')
     def addTemplateData(request):
+        try:
+            InputVal = json.loads(request.body)
+            json_data = json.dumps(InputVal)
+            with connection.cursor() as cursor:
+                cursor.execute("EXEC InsertUpdateTemplates @jsonData=%s", [json_data])
+                result = cursor.fetchone()
+                print(result)
+                print(result[0])
+                if result[0] == 1:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=200)
+                else:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=500)
+        except Exception as e:
+            response_data = {"MsgFlag": 0, "Msg": f"Error: {str(e)}"}
+            return JsonResponse(response_data, status=500)
+
+    @staticmethod
+    @csrf_exempt
+    @token_required(muduleCode='TPLT', functioncode='E')
+    def UpdateTemplateData(request):
         try:
             InputVal = json.loads(request.body)
             json_data = json.dumps(InputVal)
@@ -744,6 +793,9 @@ class Template:
 
 #---TemplateDetails------
 class TemplateDetails:
+    @staticmethod
+    @csrf_exempt
+    @token_required(muduleCode='TPLTDTL', functioncode='V')
     def GetTemplateDetailsData(request):
         with connection.cursor() as cursor:
             templateId = request.GET.get('templateId')  # You can specify a default value if not provided
@@ -767,7 +819,9 @@ class TemplateDetails:
             ]
         return JsonResponse(formatted_response, safe=False)
 
+    @staticmethod
     @csrf_exempt
+    @token_required(muduleCode='TPLTDTL', functioncode='A')
     def addTemplateDetailsData(request):
         try:
             InputVal = json.loads(request.body)
@@ -787,6 +841,27 @@ class TemplateDetails:
             response_data = {"MsgFlag": 0, "Msg": f"Error: {str(e)}"}
             return JsonResponse(response_data, status=500)
 
+    @staticmethod
+    @csrf_exempt
+    @token_required(muduleCode='TPLTDTL', functioncode='E')
+    def UpdateTemplateDetailsData(request):
+        try:
+            InputVal = json.loads(request.body)
+            json_data = json.dumps(InputVal)
+            with connection.cursor() as cursor:
+                cursor.execute("EXEC InsertUpdateTemplateDetails @jsonData=%s", [json_data])
+                result = cursor.fetchone()
+                print(result)
+                print(result[0])
+                if result[0] == 1:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=200)
+                else:
+                    response_data = {"MsgFlag": result[0], "Msg": result[1]}
+                    return JsonResponse(response_data, status=500)
+        except Exception as e:
+            response_data = {"MsgFlag": 0, "Msg": f"Error: {str(e)}"}
+            return JsonResponse(response_data, status=500)
 
 
 #---LookUp_Api------
@@ -924,7 +999,7 @@ class SpaceAndListMenu:
     def GetSpaceAndListMenuData(request):
         with connection.cursor() as cursor:
             # Call your stored procedure
-            cursor.execute("SP_GetSpaceAndListMenu_py")
+            cursor.execute("SP_GetSpaceAndListMenu_PY")
 
             # Fetch the result
             result = cursor.fetchone()
@@ -932,8 +1007,12 @@ class SpaceAndListMenu:
             # Process the result as needed
             json_value = result[0] if result else '[]'
 
-            # Convert the JSON string to a Python object
-            controls_data = json.loads(json_value)
+
+            try:
+                # Convert the JSON string to a Python object
+                controls_data = json.loads(json_value)
+            except json.JSONDecodeError:
+                controls_data = []
 
             # Create a formatted response with dynamic keys and values
             formatted_response = [
@@ -1277,4 +1356,11 @@ def ListStageUser(request):
 
 def RolePermission(request):
     return render(request,"RolePermission.html")
+
+def CreateCustomeFields(request):
+    return render(request,"CreateFeild.html")
+
+def spacelistTask(request):
+
+    return render(request, "OTR.html")
 

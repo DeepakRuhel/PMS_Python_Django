@@ -3,6 +3,7 @@
 // Parse query parameters from URL
 var queryParams = new URLSearchParams(window.location.search);
 var SubSpaceDataId = queryParams.get("id");
+var ModuleID = queryParams.get("M");
 
 
 let editbutton=document.getElementById('editbutton');
@@ -89,8 +90,12 @@ function fetchDataAndUpdateGrid() {
     fetch(url, options)
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            // If response is not OK (status code other than 2xx), handle error
+            return response.json().then(errorResponse => {
+                throw new Error(errorResponse.Msg); // Throw an error with the message from the API response
+            });
         }
+        console.log(response);
         return response.json();
     })
     .then(data => {
@@ -104,8 +109,18 @@ function fetchDataAndUpdateGrid() {
     })
     .catch(error => {
         console.error('Error fetching or setting data:', error);
+        alert(error.message); // Show the error message in an alert
     });
 }
+ // Function to format date to YYYY-MM-DD
+function formatDate(params) {
+    if (params.value) {
+        const date = new Date(params.value);
+        return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    }
+    return '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AG Grid
     const gridDiv = document.querySelector('#myLead_master');
@@ -120,9 +135,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 { headerName: 'IsTaskStage', field: 'is_TaskStage', filter: true},
 
                 { headerName: 'Created By', field: 'createdByName',filter: true },
-                { headerName: 'Created On', field: 'createdOn', filter: true },
+                { headerName: 'Created On', field: 'createdOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Updated By', field: 'updatedByName', filter: true },
-                { headerName: 'Updated On', field: 'updatedOn', filter: true },
+                { headerName: 'Updated On', field: 'updatedOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Active', field: 'isActive',filter: true }
         ],
         defaultColDef: {
@@ -137,7 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
             enableRowGroup: true,
             enablePivot: true,
         },
-        rowSelection: 'multiple',
+        rowSelection: 'single',
         animateRows: true,
         onRowClicked: onRowClicked // Attach row click event handler
     };
@@ -228,7 +243,7 @@ debugger;
 
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     // Make fetch request
-    fetch('/pms/AddEditSpcLstStg/', {
+    fetch('/pms/EditSpcLstStg/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -357,7 +372,16 @@ fetchStageTypeDropdown('StageId', $('#StageId').val())
 
 // Function to fetchTemplateDropdown
 function fetchTemplateDropdown(selectId, selectedCode) {
-    fetch('/pms/Template/')
+debugger;
+    // Make an AJAX request to fetch the data from your API
+    let options = {
+        method: "GET",
+       headers: {
+            'Content-Type': 'application/json',
+            "Authorization": localStorage.getItem('token_') // Include token in the request headers
+        },
+    };
+    fetch('/pms/Template/', options)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -438,7 +462,7 @@ function OpenAddUser(){
   debugger;
   if(selectedRowData){
      // Construct the query string with the spaceListStageData values
-    var queryString = "?SPLID=" + encodeURIComponent(SpaceListStageData.SpaceListId) + "&StId=" + encodeURIComponent(SpaceListStageData.StageId);
+    var queryString = "?SPLID=" + encodeURIComponent(SpaceListStageData.SpaceListId) + "&StId=" + encodeURIComponent(SpaceListStageData.StageId) +"&M="+ModuleID;
 
     // Append the query string to the URL of the other page
     var nextPageUrl = "ListStageUser" + queryString;
@@ -449,4 +473,15 @@ function OpenAddUser(){
   else{
     alert("Please Select any row..! ")
   }
+}
+
+function BackToList(){
+debugger;
+    var queryString = "?moduleID=" + ModuleID;
+
+    // Append the query string to the URL of the other page
+    var nextPageUrl = "sub-space" + queryString;
+
+    // Redirect to the other page with the query parameters
+    window.location.href = nextPageUrl;
 }

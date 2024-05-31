@@ -1,8 +1,7 @@
-﻿@{
-    ViewData["Title"] = "View Task";
-}
+﻿
+{% extends 'Layout.html' %}
 
-
+{% block main_content %}
 <!--topbar-->
 <style>
     .autocomplete-results {
@@ -44,8 +43,17 @@
         .taskToggleBtn i.bx {
             color: #333 !important;
         }
+
+    .taskStageListOuter {
+            max-height: 400px; /* Adjust the height as needed */
+            overflow-y: auto;
+            border: 1px solid #ccc; /* Optional: to visually separate the scrollable area */
+            padding: 10px; /* Optional: adjust padding as needed */
+        }
+
 </style>
 <header id="page-topbar">
+    {% load static %}
     <div class="layout-width">
         <div class="navbar-header  justify-content-between align-items-center">
             <!-- LOGO -->
@@ -53,19 +61,19 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="index.html" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="~/images/logo-sm.png" alt="" height="22">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/images/logo-sm.png" alt="" height="17">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="17">
                         </span>
                     </a>
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="~/images/logo-sm.png" alt="" height="22">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/images/logo-sm.png" alt="" height="17">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="17">
                         </span>
                     </a>
                 </div>
@@ -82,13 +90,16 @@
             </div>
 
 
-            <div class="d-flex align-items-center">
+           <div class="d-flex align-items-center">
                 <div class="page-button d-flex justify-content-end align-items-center">
-                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
-                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpenEdit" class="btn btn-sm btn-warning">Edit</button>
+                    <div class="d-flex flex-column align-items-end m-1 mb-0">
+                        <button class="btn btn-sm btn-light" onclick="BackToList()">Back</button>
                     </div>
+                   <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button class="btn btn-sm btn-warning" onclick="openEditModal()" id="editbutton">Edit</button>
+                   </div>
                     <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
-                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpen" class="btn btn-sm btn-success">Add</button>
+                        <button class="btn btn-sm btn-success" onclick="openAddModal()" id="Addbutton">Add</button>
                     </div>
                 </div>
                 <div class="ms-1 header-item d-none d-sm-flex">
@@ -105,106 +116,16 @@
         </div>
     </div>
 </header>
+
+
 <!--end of topbar-->
 <div class="row">
     <div class="col-lg-12 col-12">
-
         <div class="card">
             <div class="card-body p-1">
                 <div class="table-responsive">
-                    <script type="text/javascript">
 
-                        var gridOptions;
-
-                        const rowData = [
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" }
-                        ];
-                        gridOptions = {
-
-                            columnDefs: [
-                                {
-                                    headerName: 'Task Name',
-                                    field: "LeadID",
-
-
-                                },
-                                {
-                                    headerName: 'Space List Name',
-                                    field: "AccountNumber",
-
-                                },
-                                {
-                                    headerName: 'Assignee',
-                                    field: "LeadName",
-
-                                },
-                                {
-                                    headerName: 'Stage',
-                                    field: "LeadDesc",
-
-                                },
-                                {
-                                    headerName: 'Priority',
-                                    field: "SalesTeam",
-
-                                },
-                                {
-                                    headerName: 'SPOC',
-                                    field: "Owner",
-
-                                },
-                                {
-                                    headerName: 'Est. Time (HH:MM)',
-                                    field: "Stage",
-
-                                },
-                                {
-                                    headerName: 'Schedule On',
-                                    field: "TeamID"
-                                },
-                                {
-                                    headerName: 'Due Date',
-                                    field: "Company",
-
-                                },
-                                {
-                                    headerName: 'Watchers',
-                                    field: "BusinesssUnit",
-
-                                },
-                            ],
-                            rowHeight: 28,
-                            defaultColDef: {
-                                flex: 1,
-                                minWidth: 130,
-                                editable: false,
-                                resizable: true,
-                                sortable: true,
-                                filter: true,
-                                floatingFilter: true,
-                                // allow every column to be aggregated
-                                enableValue: true,
-                                // allow every column to be grouped
-                                enableRowGroup: true,
-                                // allow every column to be pivoted
-                                enablePivot: true,
-                            },
-                            rowSelection: 'multiple',
-                            //rowSelection: 'multiple';  allow rows to be selected
-                            animateRows: true, // have rows animate to new positions when sorted
-
-
-                            rowData: rowData,
-                        };
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const gridDiv = document.querySelector('#OTRTableMaster');
-                            new agGrid.Grid(gridDiv, gridOptions);
-                        });
-                    </script>
-
-                    <div id="OTRTableMaster" class="ag-theme-balham" style="height: 88vh">
+                    <div id="myLead_master" class="ag-theme-balham" style="height: 88vh">
 
                     </div>
 
@@ -213,9 +134,10 @@
             </div>
         </div>
     </div>
-
 </div>
-    <div class="modal fade myMOdalOpen" style="height:100vh;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+
+
+<div class="modal fade myMOdalOpenAddEdit" style="height:100vh;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content" style="height:93vh;">
                 <div class="modal-header">
@@ -231,36 +153,48 @@
                 <div class="modal-body pt-1 pb-1">
                     <div class="taskBox">
                         <div class="taskBoxOuter otrHeightscroll">
-                            <div class="taskBoxFeatureOuter mt-0">
-                                <div class="col-lg-12 col-12">
-                                    <div class="container-fluid">
-                                        <form id="dynamic-form">
-                                            <div id="Dynamic-OTRform-container" class="row"></div>
-                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
-                                        </form>
+                            <form id="AddEditCustomFldForm" class="needs-validation" novalidate>
+                                <div id="dynamicFieldsContainer" class="row"></div>
+                                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                                <input type="hidden" id="IId" name="IId" style="display:none;">
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                        <!-- Routing Link -->
+                                        <div class="mb-3">
+                                            <label class="form-label">Status:</label>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="inOrder" id="activeOrder" value="active" >
+                                                    <label class="form-check-label" for="activeOrder">
+                                                        Active
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" name="inOrder" id="inactiveOrder" value="inactive">
+                                                    <label class="form-check-label" for="inactiveOrder">
+                                                        Inactive
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Please select the status.
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
+                                        <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
-                            </div>
+
+                            </form>
                             <div class="taskBoxNameStageOuter d-block">
                                 <div class="row">
                                     <div class="col-lg-6 col-12">
-                                        <div class="taskStageBox pt-2">
-                                            <div class="taskStageListOuter">
-                                                <a class="headerSingleStage currentStage" href="/spacelistTask/2">
-                                                    <div class="singleStageArrow">
-                                                        <span>Sales</span>
-                                                    </div>
-                                                </a>
-                                                <a class="headerSingleStage remainingStage" href="/spacelistTask/2">
-                                                    <div class="singleStageArrow">
-                                                        <span>PD Graphics</span>
-                                                    </div>
-                                                </a>
-                                                <a class="headerSingleStage remainingStage" href="/spacelistTask/2">
-                                                    <div class="singleStageArrow">
-                                                        <span>Closed</span>
-                                                    </div>
-                                                </a>
+                                         <div class="taskStageBox pt-2">
+                                            <div class="taskStageListOuter" id="TaskStageListOuter">
+                                                <!-- Stages will be inserted here dynamically -->
                                             </div>
                                         </div>
                                         <div class="OTRTaskList">
@@ -290,5 +224,11 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <script src="~/js/OTR.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="{% static 'js/spacelistTask/spacelistTask.js' %}"></script>
+
+
+{% endblock %}
 

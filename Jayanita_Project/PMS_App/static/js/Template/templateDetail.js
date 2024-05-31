@@ -1,9 +1,61 @@
 //.....##############################.....spaceList module js code........#########################################
+debugger;
 let editbutton=document.getElementById('editbutton');
+let Addbutton=document.getElementById('Addbutton');
+var RoleId = localStorage.getItem('roleId');
 var selectedRowData;
 var gridOptions;
 var queryParams = new URLSearchParams(window.location.search);
 var selectedTemplateId = queryParams.get("id");
+var ModuleID = queryParams.get("M");
+
+function ModuleActionRight(){
+
+    debugger;
+       // Make an AJAX request to fetch the data from your API
+        debugger;
+        let options = {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": localStorage.getItem('token_') // Include token in the request headers
+            },
+        };
+        fetch('/pms/api/Users/ModuleAction?roleId='+RoleId+'&moduleId='+ModuleID, options)
+        .then(response => {
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+
+            // Check if data is empty or null
+            if (!data || data.length === 0) {
+                console.error('Fetched data is empty or null.');
+                return;
+            }
+            console.log(data);
+            data.forEach(item => {
+
+              console.log("item",item)
+              if (item.Code=="E" && item.IsApplicable!=true){
+                editbutton.style.display="none"
+              }
+              else if(item.Code=="A" && item.IsApplicable!=true){
+                Addbutton.style.display="none"
+              }
+            })
+        })
+        .catch(error => {
+            console.error('Error fetching or setting data:', error);
+            alert(error.message); // Show the error message in an alert
+        });
+    }
+ModuleActionRight()
+
+
 
 // Function to handle row click event in AG Grid
 function onRowClicked(event) {
@@ -16,6 +68,11 @@ debugger;
     // Function to open the edit modal and pre-fill fields with selected row data
 function openEditModal() {
     debugger;
+    // Ensure the element exists before trying to hide it
+    var statusField = document.getElementById('StatusField');
+    if (statusField) {
+        $(statusField).show(); // Using jQuery to hide the element
+    }
     // Check if a row is selected
     if (selectedRowData) {
 
@@ -67,6 +124,11 @@ debugger;
 function openAddModal(){
 debugger;
   clearFormFields()
+  // Ensure the element exists before trying to hide it
+  var statusField = document.getElementById('StatusField');
+  if (statusField) {
+        $(statusField).hide(); // Using jQuery to hide the element
+  }
 }
 
 // Function to fetch data and update AG Grid
@@ -88,8 +150,12 @@ function fetchDataAndUpdateGrid() {
 
     .then(response => {
         if (!response.ok) {
-            throw new Error('Network response was not ok');
+            // If response is not OK (status code other than 2xx), handle error
+            return response.json().then(errorResponse => {
+                throw new Error(errorResponse.Msg); // Throw an error with the message from the API response
+            });
         }
+        console.log(response);
         return response.json();
     })
     .then(data => {
@@ -103,8 +169,19 @@ function fetchDataAndUpdateGrid() {
     })
     .catch(error => {
         console.error('Error fetching or setting data:', error);
+        alert(error.message); // Show the error message in an alert
     });
 }
+ // Function to format date to YYYY-MM-DD
+    function formatDate(params) {
+        if (params.value) {
+            const date = new Date(params.value);
+            return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+        }
+        return '';
+    }
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AG Grid
     const gridDiv = document.querySelector('#myLead_master');
@@ -123,9 +200,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 { headerName: 'DefaultValue', field: 'defaultValue', filter: true},
 
                 { headerName: 'Created By', field: 'createdByName',filter: true },
-                { headerName: 'Created On', field: 'createdOn', filter: true },
+                { headerName: 'Created On', field: 'createdOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Updated By', field: 'updatedByName', filter: true },
-                { headerName: 'Updated On', field: 'updatedOn', filter: true },
+                { headerName: 'Updated On', field: 'updatedOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Active', field: 'isActive',filter: true },
                 { headerName: 'LstValue', field: 'listValue',filter: true },
                 { headerName: 'SqlQuery', field: 'sqlQuery',filter: true }
@@ -142,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
             enableRowGroup: true,
             enablePivot: true,
         },
-        rowSelection: 'multiple',
+        rowSelection: 'single',
         animateRows: true,
         onRowClicked: onRowClicked // Attach row click event handler
     };
@@ -176,6 +253,7 @@ function addtemplateDetail(e){
     debugger;
     e.preventDefault();
     var currentDate = new Date().toISOString();
+
     const payload = {
         "templateId":$('#TemplateId').val(),
         "controlId":$('#ControlId').val(),
@@ -192,7 +270,7 @@ function addtemplateDetail(e){
         "roleIdVisible":$('#RoleIdVisibleId').val(),
         "createdBy": localStorage.getItem('id'),
         "createdOn": currentDate,
-        "isActive":$('input[name="inOrder"]:checked').val() === 'active',
+        "isActive":true
     };
 
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
@@ -247,7 +325,7 @@ debugger;
 
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     // Make fetch request
-    fetch('/pms/AddTpltDtls/', {
+    fetch('/pms/UpdateTpltDtls/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -458,5 +536,16 @@ function fetchVisibleRoleDropdown(selectId, selectedCode) {
 }
 fetchVisibleRoleDropdown('RoleIdVisibleId', null)
 fetchVisibleRoleDropdown('RoleIdVisibleId', $('#RoleIdVisibleId').val())
+
+function BackTotemplates(){
+debugger;
+    var queryString = "?moduleID=" + ModuleID;
+
+    // Append the query string to the URL of the other page
+    var nextPageUrl = "templates" + queryString;
+
+    // Redirect to the other page with the query parameters
+    window.location.href = nextPageUrl;
+}
 
 

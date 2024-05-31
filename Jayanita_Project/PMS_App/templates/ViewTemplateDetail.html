@@ -42,13 +42,13 @@
             <div class="d-flex align-items-center">
                 <div class="page-button d-flex justify-content-end align-items-center">
                     <div class="d-flex flex-column align-items-end m-1 mb-0">
-                        <a href="view_Template" class="btn btn-sm btn-light">Back</a>
+                        <button onclick="BackTotemplates()" class="btn btn-sm btn-light">Back</button>
                     </div>
                     <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
                         <button data-bs-toggle="modal" data-bs-target="myMOdalOpenAddEdit" class="btn btn-sm btn-warning" onclick="openEditModal()" id="editbutton">Edit</button>
                     </div>
                     <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
-                        <button data-bs-toggle="modal" data-bs-target="myMOdalOpenAddEdit" class="btn btn-sm btn-success" onclick="openAddModal()">Add</button>
+                        <button data-bs-toggle="modal" data-bs-target="myMOdalOpenAddEdit" class="btn btn-sm btn-success" onclick="openAddModal()" id="Addbutton">Add</button>
                     </div>
                 </div>
                 <div class="ms-1 header-item d-none d-sm-flex">
@@ -152,7 +152,7 @@
 
                             </select>
                         </div>
-                        <div class="col-lg-3 col-sm-4 col-12">
+                        <div class="col-lg-3 col-sm-4 col-12" id="StatusField">
                             <!-- Routing Link -->
                             <div class="mb-3">
                                 <label class="form-label">Status:</label>

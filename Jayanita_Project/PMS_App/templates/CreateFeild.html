@@ -1,11 +1,8 @@
-﻿@{
-    ViewData["Title"] = "Create Feild";
-}
+﻿{% extends 'Layout.html' %}
 
-
-<!--topbar-->
-
+{% block main_content %}
 <header id="page-topbar">
+     {% load static %}
     <div class="layout-width">
         <div class="navbar-header  justify-content-between align-items-center">
             <!-- LOGO -->
@@ -13,19 +10,19 @@
                 <div class="navbar-brand-box horizontal-logo">
                     <a href="index.html" class="logo logo-dark">
                         <span class="logo-sm">
-                            <img src="~/images/logo-sm.png" alt="" height="22">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/images/logo-dark.svg" alt="" height="17">
+                            <img src="{% static 'images/logo-dark.svg' %}" alt="" height="17">
                         </span>
                     </a>
 
                     <a href="index.html" class="logo logo-light">
                         <span class="logo-sm">
-                            <img src="~/images/logo-sm.png" alt="" height="22">
+                            <img src="{% static 'images/logo-sm.png' %}" alt="" height="22">
                         </span>
                         <span class="logo-lg">
-                            <img src="~/images/logo-light.svg" alt="" height="17">
+                            <img src="{% static 'images/logo-light.svg' %}" alt="" height="17">
                         </span>
                     </a>
                 </div>
@@ -44,11 +41,14 @@
 
             <div class="d-flex align-items-center">
                 <div class="page-button d-flex justify-content-end align-items-center">
-                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
-                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpenEdit" class="btn btn-sm btn-warning">Edit</button>
+                    <div class="d-flex flex-column align-items-end m-1 mb-0">
+                        <button class="btn btn-sm btn-light" onclick="BackToList()">Back</button>
                     </div>
                     <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
-                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpen" class="btn btn-sm btn-success">Add</button>
+                        <button data-bs-toggle="modal"  class="btn btn-sm btn-warning" onclick="openEditModal()" id="editbutton">Edit</button>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpenAddEdit" class="btn btn-sm btn-success" onclick="openAddModal()" id="Addbutton">Add</button>
                     </div>
                 </div>
                 <div class="ms-1 header-item d-none d-sm-flex">
@@ -71,97 +71,6 @@
         <div class="card">
             <div class="card-body p-1">
                 <div class="table-responsive">
-                    <script type="text/javascript">
-
-                        var gridOptions;
-
-                        const rowData = [
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
-                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" }
-                        ];
-                        gridOptions = {
-
-                            columnDefs: [
-                                {
-                                    headerName: 'LeadID',
-                                    field: "LeadID",
-
-
-                                },
-                                {
-                                    headerName: 'AccountNumber',
-                                    field: "AccountNumber",
-
-                                },
-                                {
-                                    headerName: 'LeadName',
-                                    field: "LeadName",
-
-                                },
-                                {
-                                    headerName: 'LeadDesc',
-                                    field: "LeadDesc",
-
-                                },
-                                {
-                                    headerName: 'SalesTeam',
-                                    field: "SalesTeam",
-
-                                },
-                                {
-                                    headerName: 'Owner',
-                                    field: "Owner",
-
-                                },
-                                {
-                                    headerName: 'Stage',
-                                    field: "Stage",
-
-                                },
-                                {
-                                    headerName: 'TeamID',
-                                    field: "TeamID"
-                                },
-                                {
-                                    headerName: 'Company',
-                                    field: "Company",
-
-                                },
-                                {
-                                    headerName: 'BusinesssUnit',
-                                    field: "BusinesssUnit",
-
-                                },
-                            ],
-                            rowHeight: 28,
-                            defaultColDef: {
-                                flex: 1,
-                                minWidth: 130,
-                                editable: false,
-                                resizable: true,
-                                sortable: true,
-                                filter: true,
-                                floatingFilter: true,
-                                // allow every column to be aggregated
-                                enableValue: true,
-                                // allow every column to be grouped
-                                enableRowGroup: true,
-                                // allow every column to be pivoted
-                                enablePivot: true,
-                            },
-                            rowSelection: 'multiple',
-                            //rowSelection: 'multiple';  allow rows to be selected
-                            animateRows: true, // have rows animate to new positions when sorted
-
-
-                            rowData: rowData,
-                        };
-                        document.addEventListener('DOMContentLoaded', () => {
-                            const gridDiv = document.querySelector('#myLead_master');
-                            new agGrid.Grid(gridDiv, gridOptions);
-                        });
-                    </script>
 
                     <div id="myLead_master" class="ag-theme-balham" style="height: 88vh">
 
@@ -175,214 +84,149 @@
 </div>
 
 
-<div class="modal fade myMOdalOpen" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myExtraLargeModalLabel">
-                    Add
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="createFeildForm" class="needs-validation" novalidate>
-                    <!-- Category Name -->
-                    <div class="form-group row">
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Routing Link -->
-                            <div class="mb-3">
-                                <label for="Code" class="form-label">Code:</label>
-                                <input type="text" class="form-control" id="Code" value="code" name="Code" required>
-                                <div class="invalid-feedback">
-                                    Please enter the Code.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Routing Link -->
-                            <div class="mb-3">
-                                <label for="Name" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="Name" value="Name" name="Name" required>
-                                <div class="invalid-feedback">
-                                    Please enter the Routing Link.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <div class="mb-3">
-                                <label for="spaceId" class="form-label">Space Name:</label>
-                                <select class="form-select" id="spaceId" name="spaceId" required>
-                                    <option value="">Select Option</option>
-                                    <option value="Space1"> Space 1 </option>
-                                    <option value="Space2"> Space 2 </option>
-                                    <option value="Space3"> Space 3 </option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please enter the Space.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <div class="mb-3">
-                                <label for="Stage" class="form-label">Stage:</label>
-                                <select class="form-select" id="Stage" name="Stage" required>
-                                    <option value="">Select Option</option>
-                                    <option value="Stage1"> Stage 1 </option>
-                                    <option value="Stage2"> Stage 2 </option>
-                                    <option value="Stage3"> Stage 3 </option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please enter the Space.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Routing Link -->
-                            <div class="mb-3">
-                                <label for="colNoInRow" class="form-label">No. of Feilds:</label>
-                                <input type="text" class="form-control" id="colNoInRow" name="colNoInRow" required>
-                                <div class="invalid-feedback">
-                                    Please enter the No. of Feilds.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Routing Link -->
-                            <div class="mb-3">
-                                <label for="Description" class="form-label">Description:</label>
-                                <input type="text" class="form-control" id="Description" name="Description" required>
-                                <div class="invalid-feedback">
-                                    Please enter the Description.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Icon -->
-                            <div class="mb-3">
-                                <label for="icon" class="form-label">Icon:</label>
-                                <select class="form-select" id="icon" name="icon" required>
-                                    <option value="">Select Option</option>
-                                    <option selected value="fas fa-star">&#xf005; Star</option>
-                                    <option value="fas fa-heart">&#xf004; Heart</option>
-                                    <option value="fas fa-thumbs-up">&#xf164; Thumbs Up</option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please select an Icon.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
-                            <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
 
-<div class="modal fade myMOdalOpenEdit" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+
+<div class="modal fade myMOdalOpenAddEdit" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="myExtraLargeModalLabel">
-                    Edit
+                    Add/Edit
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <input type="number" id="IId" style="display:none;">
             <div class="modal-body">
-                <form id="createFeildForm" class="needs-validation" novalidate>
+                <form id="AddEditCustomFldForm" class="needs-validation" novalidate>
                     <!-- Category Name -->
                     <div class="form-group row">
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Routing Link -->
+                         <div class="col-lg-4 col-sm-6 col-12">
                             <div class="mb-3">
-                                <label for="Code" class="form-label">Code:</label>
-                                <input type="text" class="form-control" id="Code" value="code" name="Code" required>
+                                <label for="SpaceListId" class="form-label">SpaceList:</label>
+                                <select class="form-select" id="SpaceListId" name="SpaceListId" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
                                 <div class="invalid-feedback">
-                                    Please enter the Code.
+                                    Please enter the Space.
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
+                         <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="mb-3">
+                                <label for="TypeID" class="form-label">Type:</label>
+                                <select class="form-select" id="TypeID" name="TypeID" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please Select Type.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12" id="ValueTypeField">
+                            <div class="mb-3">
+                                <label for="ValueTypeId" class="form-label">ValueType:</label>
+                                <select class="form-select" id="ValueTypeId" name="ValueTypeId" required>
+                                    <option value="">Select Option</option>
+
+                                    <!-- Add more options as needed -->
+                                </select>
+                                <div class="invalid-feedback">
+                                    Please Select ValueType.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12" id="NameField">
                             <!-- Routing Link -->
                             <div class="mb-3">
                                 <label for="Name" class="form-label">Name:</label>
-                                <input type="text" class="form-control" id="Name" value="Name" name="Name" required>
+                                <input type="text" class="form-control" id="Name" name="Name">
                                 <div class="invalid-feedback">
-                                    Please enter the Routing Link.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <div class="mb-3">
-                                <label for="spaceId" class="form-label">Space Name:</label>
-                                <select class="form-select" id="spaceId" name="spaceId" required>
-                                    <option value="">Select Option</option>
-                                    <option value="Space1"> Space 1 </option>
-                                    <option value="Space2"> Space 2 </option>
-                                    <option value="Space3"> Space 3 </option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please enter the Space.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-sm-6 col-12">
-                            <div class="mb-3">
-                                <label for="Stage" class="form-label">Stage:</label>
-                                <select class="form-select" id="Stage" name="Stage" required>
-                                    <option value="">Select Option</option>
-                                    <option value="Stage1"> Stage 1 </option>
-                                    <option value="Stage2"> Stage 2 </option>
-                                    <option value="Stage3"> Stage 3 </option>
-                                    <!-- Add more options as needed -->
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please enter the Space.
+                                    Please enter the Name.
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 col-12">
                             <!-- Routing Link -->
                             <div class="mb-3">
-                                <label for="colNoInRow" class="form-label">No. of Feilds:</label>
-                                <input type="text" class="form-control" id="colNoInRow" name="colNoInRow" required>
+                                <label for="Lable" class="form-label">Lable:</label>
+                                <input type="text" class="form-control" id="Lable" name="Lable" required>
                                 <div class="invalid-feedback">
-                                    Please enter the No. of Feilds.
+                                    Please enter the Lable.
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 col-12">
                             <!-- Routing Link -->
                             <div class="mb-3">
-                                <label for="Description" class="form-label">Description:</label>
-                                <input type="text" class="form-control" id="Description" name="Description" required>
+                                <label for="Width" class="form-label">Width:</label>
+                                <input type="text" class="form-control" id="Width" name="Width" required>
                                 <div class="invalid-feedback">
-                                    Please enter the Description.
+                                    Please enter the Width.
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4 col-sm-6 col-12">
-                            <!-- Icon -->
+                            <!-- Routing Link -->
                             <div class="mb-3">
-                                <label for="icon" class="form-label">Icon:</label>
-                                <select class="form-select" id="icon" name="icon" required>
-                                    <option value="">Select Option</option>
-                                    <option selected value="fas fa-star">&#xf005; Star</option>
-                                    <option value="fas fa-heart">&#xf004; Heart</option>
-                                    <option value="fas fa-thumbs-up">&#xf164; Thumbs Up</option>
-                                    <!-- Add more options as needed -->
-                                </select>
+                                <label for="ValSize" class="form-label">ValSize:</label>
+                                <input type="text" class="form-control" id="ValSize" name="ValSize">
                                 <div class="invalid-feedback">
-                                    Please select an Icon.
+                                    Please enter the ValSize.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <!-- Routing Link -->
+                            <div class="mb-3 w-100">
+                                <label for="ListValue" class="form-label">ListValue:</label>
+                                <input type="text" class="form-control" id="ListValue" name="ListValue">
+                                <div class="invalid-feedback">
+                                    Please enter the Custom Name.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-6 col-12">
+                            <div class="mb-3">
+                                <label for="SeqNo" class="form-label">SeqNo:</label>
+                                <input type="text" class="form-control" id="SeqNo" name="SeqNo" required>
+                                <div class="invalid-feedback">
+                                    Please enter the SeqNo.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12" >
+                            <!-- Routing Link -->
+                            <div class="mb-3 w-100 d-flex flex-column">
+                                <label for="IsfromLookUp" class="form-label">IsfromLookUp:</label>
+                                <input type="checkbox" class="form-check-input" id="IsfromLookUp" name="IsfromLookUp" >
+                                <div class="invalid-feedback">
+                                    Check the radio button.
+                                </div>
+                            </div>
+                        </div>
+
+                         <div class="col-lg-4 col-sm-6 col-12" >
+                            <!-- Routing Link -->
+                            <div class="mb-3 w-100 d-flex flex-column">
+                                <label for="IsShowInKanban" class="form-label">IsShowInKanban:</label>
+                                <input type="checkbox" class="form-check-input" id="IsShowInKanban" name="IsShowInKanban" >
+                                <div class="invalid-feedback">
+                                    Check the radio button.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 col-12" id="optionalFields2" >
+                            <!-- Routing Link -->
+                            <div class="mb-3 w-100 d-flex flex-column">
+                                <label for="IsRequired" class="form-label">IsRequired:</label>
+                                <input type="checkbox" class="form-check-input" id="IsRequired" name="IsRequired" >
+                                <div class="invalid-feedback">
+                                    Check the radio button.
                                 </div>
                             </div>
                         </div>
@@ -392,7 +236,7 @@
                                 <label class="form-label">Status:</label>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="inOrder" id="activeOrder" value="active" required>
+                                        <input class="form-check-input" type="radio" name="inOrder" id="activeOrder" value="active" >
                                         <label class="form-check-label" for="activeOrder">
                                             Active
                                         </label>
@@ -408,40 +252,25 @@
                                     Please select the status.
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row">
+
                         <div class="col-lg-4 col-sm-8 col-12 justify-content-between">
                             <button type="button" class="btn btn-secondary fw-medium material-shadow-none" data-bs-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>
                     </div>
+                    <input type="hidden" name="csrfmiddlewaretoken" value={ csrf_token }  />
                 </form>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const spaceId = document.getElementById('spaceId');
-        const EditspaceId = document.getElementById('EditspaceId');
-        const optionalFields = document.getElementById('optionalFields');
-        const EditoptionalFields = document.getElementById('EditoptionalFields');
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-        spaceId.addEventListener('change', function () {
-            if (spaceId.value === 'Space2') {
-                optionalFields.style.display = 'flex';
-            } else {
-                optionalFields.style.display = 'none';
-            }
-        }); EditspaceId.addEventListener('change', function () {
-            if (EditspaceId.value === 'Space2') {
-                EditoptionalFields.style.display = 'flex';
-            } else {
-                EditoptionalFields.style.display = 'none';
-            }
-        });
-    });
-</script>
+<script src="{% static 'js/CustomeFeild/CustomeFeild.js' %}"></script>
+
+
+{% endblock %}

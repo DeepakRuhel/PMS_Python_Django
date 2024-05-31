@@ -5,6 +5,7 @@ debugger;
 var queryParams = new URLSearchParams(window.location.search);
 var SPCLID = queryParams.get("SPLID");
 var STGID = queryParams.get("StId");
+var ModuleID = queryParams.get("M");
 
 
 let editbutton=document.getElementById('editbutton');
@@ -84,9 +85,13 @@ function fetchDataAndUpdateGrid() {
     url = '/pms/StageUsers?SpaceListId='+encodeURIComponent(SPCLID)+'&StageId='+encodeURIComponent(STGID)+'&Id=0'
     fetch(url, options)
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
+       if (!response.ok) {
+            // If response is not OK (status code other than 2xx), handle error
+            return response.json().then(errorResponse => {
+                throw new Error(errorResponse.Msg); // Throw an error with the message from the API response
+            });
         }
+        console.log(response);
         return response.json();
     })
     .then(data => {
@@ -100,8 +105,18 @@ function fetchDataAndUpdateGrid() {
     })
     .catch(error => {
         console.error('Error fetching or setting data:', error);
+        alert(error.message); // Show the error message in an alert
     });
 }
+ // Function to format date to YYYY-MM-DD
+function formatDate(params) {
+    if (params.value) {
+        const date = new Date(params.value);
+        return date.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    }
+    return '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize AG Grid
     const gridDiv = document.querySelector('#myLead_master');
@@ -114,9 +129,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
                 { headerName: 'Created By', field: 'createdByName',filter: true },
-                { headerName: 'Created On', field: 'createdOn', filter: true },
+                { headerName: 'Created On', field: 'createdOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Updated By', field: 'updatedByName', filter: true },
-                { headerName: 'Updated On', field: 'updatedOn', filter: true },
+                { headerName: 'Updated On', field: 'updatedOn', filter: true ,cellRenderer: formatDate },
                 { headerName: 'Active', field: 'isActive',filter: true }
         ],
         defaultColDef: {
@@ -131,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
             enableRowGroup: true,
             enablePivot: true,
         },
-        rowSelection: 'multiple',
+        rowSelection: 'single',
         animateRows: true,
         onRowClicked: onRowClicked // Attach row click event handler
     };
@@ -300,7 +315,8 @@ fetchUserNameDropdown('UserName', $('#UserName').val())
 
 
 function BackToStages(){
-    var queryString = "?id=" + SPCLID;
+debugger;
+    var queryString = "?id=" + SPCLID + "&M="+ModuleID;
 
     // Append the query string to the URL of the other page
     var nextPageUrl = "selectStage" + queryString;
