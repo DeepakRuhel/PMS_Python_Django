@@ -1,0 +1,294 @@
+﻿@{
+    ViewData["Title"] = "View Task";
+}
+
+
+<!--topbar-->
+<style>
+    .autocomplete-results {
+        /*position: absolute;*/
+        width: 100%;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        max-height: 200px;
+        overflow-y: auto;
+        display: none;
+    }
+
+    .autocomplete-result {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+        .autocomplete-result:hover {
+            background-color: #e9e9e9;
+        }
+    /* Hide the popover by default */
+    .popover {
+        display: none;
+    }
+
+    /* Show the popover when the popover-open class is added */
+    .popover-open {
+        display: block;
+    }
+
+    .taskToggleBtn {
+        display: flex;
+        width: 30px;
+        height: 30px;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .taskToggleBtn i.bx {
+            color: #333 !important;
+        }
+</style>
+<header id="page-topbar">
+    <div class="layout-width">
+        <div class="navbar-header  justify-content-between align-items-center">
+            <!-- LOGO -->
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="navbar-brand-box horizontal-logo">
+                    <a href="index.html" class="logo logo-dark">
+                        <span class="logo-sm">
+                            <img src="~/images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="~/images/logo-sm.png" alt="" height="17">
+                        </span>
+                    </a>
+
+                    <a href="index.html" class="logo logo-light">
+                        <span class="logo-sm">
+                            <img src="~/images/logo-sm.png" alt="" height="22">
+                        </span>
+                        <span class="logo-lg">
+                            <img src="~/images/logo-sm.png" alt="" height="17">
+                        </span>
+                    </a>
+                </div>
+                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
+                    <span class="hamburger-icon">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </button>
+                <div class="breadcrumb">
+                    <div class="breadcrumb-item ms-3">Setup</div> <div class="breadcrumb-item">View Task</div>
+                </div>
+            </div>
+
+
+            <div class="d-flex align-items-center">
+                <div class="page-button d-flex justify-content-end align-items-center">
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpenEdit" class="btn btn-sm btn-warning">Edit</button>
+                    </div>
+                    <div class="form-group d-flex flex-column align-items-end m-1 mb-0">
+                        <button data-bs-toggle="modal" data-bs-target=".myMOdalOpen" class="btn btn-sm btn-success">Add</button>
+                    </div>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle" data-toggle="fullscreen">
+                        <i class='bx bx-fullscreen fs-22'></i>
+                    </button>
+                </div>
+                <div class="ms-1 header-item d-none d-sm-flex">
+                    <button type="button" class="btn btn-icon btn-topbar btn-ghost-secondary rounded-circle light-dark-mode">
+                        <i class='bx bx-moon fs-22'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!--end of topbar-->
+<div class="row">
+    <div class="col-lg-12 col-12">
+
+        <div class="card">
+            <div class="card-body p-1">
+                <div class="table-responsive">
+                    <script type="text/javascript">
+
+                        var gridOptions;
+
+                        const rowData = [
+                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
+                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" },
+                            { LeadID: "Toyota", AccountNumber: "Toyota", LeadName: "Celica", LeadDesc: "35000", SalesTeam: "Toyota", Owner: "Celica", Stage: "35000", TeamID: "Toyota", Company: "Celica", BusinesssUnit: "sdasdasd" }
+                        ];
+                        gridOptions = {
+
+                            columnDefs: [
+                                {
+                                    headerName: 'Task Name',
+                                    field: "LeadID",
+
+
+                                },
+                                {
+                                    headerName: 'Space List Name',
+                                    field: "AccountNumber",
+
+                                },
+                                {
+                                    headerName: 'Assignee',
+                                    field: "LeadName",
+
+                                },
+                                {
+                                    headerName: 'Stage',
+                                    field: "LeadDesc",
+
+                                },
+                                {
+                                    headerName: 'Priority',
+                                    field: "SalesTeam",
+
+                                },
+                                {
+                                    headerName: 'SPOC',
+                                    field: "Owner",
+
+                                },
+                                {
+                                    headerName: 'Est. Time (HH:MM)',
+                                    field: "Stage",
+
+                                },
+                                {
+                                    headerName: 'Schedule On',
+                                    field: "TeamID"
+                                },
+                                {
+                                    headerName: 'Due Date',
+                                    field: "Company",
+
+                                },
+                                {
+                                    headerName: 'Watchers',
+                                    field: "BusinesssUnit",
+
+                                },
+                            ],
+                            rowHeight: 28,
+                            defaultColDef: {
+                                flex: 1,
+                                minWidth: 130,
+                                editable: false,
+                                resizable: true,
+                                sortable: true,
+                                filter: true,
+                                floatingFilter: true,
+                                // allow every column to be aggregated
+                                enableValue: true,
+                                // allow every column to be grouped
+                                enableRowGroup: true,
+                                // allow every column to be pivoted
+                                enablePivot: true,
+                            },
+                            rowSelection: 'multiple',
+                            //rowSelection: 'multiple';  allow rows to be selected
+                            animateRows: true, // have rows animate to new positions when sorted
+
+
+                            rowData: rowData,
+                        };
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const gridDiv = document.querySelector('#OTRTableMaster');
+                            new agGrid.Grid(gridDiv, gridOptions);
+                        });
+                    </script>
+
+                    <div id="OTRTableMaster" class="ag-theme-balham" style="height: 88vh">
+
+                    </div>
+
+                    <!--end table-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+    <div class="modal fade myMOdalOpen" style="height:100vh;" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" style="height:93vh;">
+                <div class="modal-header">
+                    <div class="taskBoxListSaveOuter">
+                        <div class="taskListBox">
+                            <div class="breadcrumb">
+                                <div class="breadcrumb-item ms-3">Application</div> <div class="breadcrumb-item">PMS</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body pt-1 pb-1">
+                    <div class="taskBox">
+                        <div class="taskBoxOuter otrHeightscroll">
+                            <div class="taskBoxFeatureOuter mt-0">
+                                <div class="col-lg-12 col-12">
+                                    <div class="container-fluid">
+                                        <form id="dynamic-form">
+                                            <div id="Dynamic-OTRform-container" class="row"></div>
+                                            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="taskBoxNameStageOuter d-block">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <div class="taskStageBox pt-2">
+                                            <div class="taskStageListOuter">
+                                                <a class="headerSingleStage currentStage" href="/spacelistTask/2">
+                                                    <div class="singleStageArrow">
+                                                        <span>Sales</span>
+                                                    </div>
+                                                </a>
+                                                <a class="headerSingleStage remainingStage" href="/spacelistTask/2">
+                                                    <div class="singleStageArrow">
+                                                        <span>PD Graphics</span>
+                                                    </div>
+                                                </a>
+                                                <a class="headerSingleStage remainingStage" href="/spacelistTask/2">
+                                                    <div class="singleStageArrow">
+                                                        <span>Closed</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="OTRTaskList">
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <div class="card">
+                                            <div class="card-body" id="chat-activity">
+                                                <!-- Chat messages and activity logs will be displayed here -->
+                                            </div>
+                                            <div class="card-footer">
+                                                <div class="input-group">
+                                                    <input type="file" id="fileInput" accept="image/*, .pdf, .doc, .docx" style="display: none;"> <!-- Hidden file input -->
+                                                    <button class="btn btn-primary" id="attachBtn">Attach</button> <!-- Attachment button -->
+                                                    <input type="text" class="form-control" id="messageInput" placeholder="Type your message...">
+                                                    <button class="btn btn-primary" id="sendBtn">Send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    <script src="~/js/OTR.js"></script>
+

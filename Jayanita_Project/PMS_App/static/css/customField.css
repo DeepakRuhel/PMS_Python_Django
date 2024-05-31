@@ -1,0 +1,494 @@
+﻿.breadcrumb {
+    margin-bottom: 0px !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.mySearchbox {
+    padding: 15px;
+}
+.breadcrumb-item {
+    color: #e9ebec;
+}
+.simplebar-content-wrapper{
+    max-height:90%!important;
+}
+.header-item.topbar-user {
+    position: fixed;
+    bottom: 3px;
+    width: 14.5%;
+}
+.myProfile{
+    display:block;
+}
+
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .myProfile {
+    display: none;
+}
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .header-item.topbar-user {
+    position: fixed;
+    bottom: 10px;
+    width: 3.5%;
+    margin-left: 9px !important;
+}
+:is([data-layout=vertical],[data-layout=semibox])[data-sidebar-size=sm] .header-item.topbar-user button {
+    padding-left:10px;
+}
+.logoBox img.img-fluid {
+    max-width: 200px;
+}
+
+.logoBox {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+.nav-item:hover .collapse.menu-dropdown {
+    overflow-y: auto;
+    max-height: 300px;
+}
+.cardheadcontent{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    padding:10px;
+    border:1px solid #559900;
+    border-radius:5px;
+}
+
+
+/*task style*/
+
+.allTaskComponent{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.taskBoxListSaveOuter {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.taskBoxListSaveOuter .taskListBox {
+    margin-right: 20px;
+}
+
+.taskBoxListSaveOuter .taskListBox .breadcrumb-item {
+    color: #151529;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.taskBoxNameStageOuter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+.taskBoxNameStageOuter .taskNameBox {
+    width: 20%;
+}
+
+.taskBoxNameStageOuter .taskStageBox {
+    width: 80%;
+    display: flex;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage {
+    font-size: 14px;
+    text-align: center;
+    color: #fff;
+    cursor: default;
+    margin: 0 3px;
+    padding: 8px 10px 8px 10px;
+    min-width: 140px;
+    text-decoration: unset;
+    float: left;
+    position: relative;
+    background-color: #373234;
+    -webkit-user-select: none;
+    user-select: none;
+    transition: background-color 0.2s ease;
+}
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage.currentStage {
+    background-color: #567B57;
+    color: #fff;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage:before, .taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage:after {
+    content: " ";
+    position: absolute;
+    top: 0;
+    right: -16px;
+    width: 0;
+    height: 0;
+    border-top: 18px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 17px solid #373234;
+    z-index: 2;
+    transition: border-color 0.2s ease;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage:first-child:before {
+    border: none;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage:before {
+    right: auto;
+    left: 0;
+    border-left: 17px solid #2c2c2c;
+    z-index: 0;
+}
+
+.taskBoxNameStageOuter .taskStageBox .taskStageListOuter .headerSingleStage.currentStage:after {
+    border-left: 17px solid #567B57;
+}
+.taskAssignTo, .taskPriority, .taskCreatedBy, .taskCreatedOn, .taskWatcher, .taskDynamicForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+    .taskAssignTo .btn-icon, .taskPriority .btn-icon, .taskCreatedBy .btn-icon, .taskCreatedOn .btn-icon,
+    .taskScheduleOn .btn-icon, .taskPERIODOFWORK .btn-icon, .taskTotalTime .btn-icon, .taskWatcher .btn-icon, .taskDynamicForm .btn-icon {
+        padding: 0px;
+        border: 1px solid #dfdfdf;
+    }
+
+.taskBoxFeatureOuter {
+    display: block;
+    width: 100%;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    margin-top: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+.hiddenCalender.form-control.input {
+    position: absolute;
+    top: 0px;
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    z-index: 99999;
+    background-color: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+.taskScheduleOn, .taskPERIODOFWORK, .taskTotalTime, .taskWatcher, .taskDynamicForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+.totalTimeBox {
+    justify-content: flex-start;
+    display: flex;
+    align-items: center;
+}
+
+#selectedWatcherImages {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    #selectedWatcherImages .selected-Watcher-item {
+        display: flex;
+        position: relative;
+    }
+
+    #selectedWatcherImages .selected-Watcher-item img {
+        display: flex;
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+    }
+
+    #selectedWatcherImages .selected-Watcher-item .remove-Watcher-item {
+        position: absolute;
+        right: -2px;
+        height: 13px;
+        width: 13px;
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        border-radius: 50%;
+        border: 1px solid #ddd;
+        align-items: center;
+        cursor: pointer;
+    }
+
+.autocomplete-Watcher-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 5px;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+.autocomplete-Watcher-item img {
+    display: flex;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.taskDynamicForm .dropdown-menu-xl {
+    width: 50vw;
+}
+
+/* chat CSS styles */
+#chat-activity {
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.message-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.message-container.left {
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+}
+.message-container.right {
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+}
+
+.message-bubble {
+    background-color: #e9ecef;
+    border-radius: 10px;
+    padding: 8px 12px;
+    display: flex;
+    width: fit-content;
+}
+
+.message-bubble.right {
+    background-color: #007bff;
+    color: #fff;
+}
+.taskBoxChatSubtaskOuter {
+    width: 100%;
+}
+
+/* end of  chat CSS styles */
+
+.addSubTask {
+    position: relative;
+}
+
+.btnCircleBig {
+    position: absolute;
+    height: 75px;
+    width: 75px;
+    border-radius: 50%;
+    top: -80px;
+    right: 0;
+    background-color: #fff;
+    border-color: #011936;
+}
+
+    .btnCircleBig i {
+        font-size: 30px;
+    }
+
+/*end of task style */
+
+
+.table-row {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: 0px 5px 0px 5px;
+    border-top: 1px solid #f2f2f2; 
+}
+.taskChild.SubtaskListView {
+    padding-left: 40px;
+}
+.singletablerow {
+    border-bottom: 1px solid #f2f2f2;
+}
+
+.table-row .table-cell {
+    display: flex;
+    justify-content: flex-start;
+    /* border-right: 1px solid #f1f1f1; */
+    padding: 3px;
+    padding-right: 2px;
+    padding-left: 5px;
+    /* margin-right: 5px; */
+    /* border-bottom: 1px solid #f1f1f1; */
+    cursor: pointer;
+}
+
+    .table-row .table-cell.tablelastName {
+        justify-content: center;
+        align-items: center;
+    }
+
+.table-cell.tableFullName {
+    /* min-width: 150px;
+    width: 350px; */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: flex;
+    align-items: center;
+    min-width: 349px;
+    flex-shrink: 1;
+    flex-grow: 1;
+    /* left: 0; */
+    z-index: 20;
+    padding: 1px 5px;
+}
+
+
+.table-cell.tableMidName {
+    min-width: 100px;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+
+.table-cell.tablelastName {
+    min-width: 100px;
+    width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* display: block; */
+    /*position: relative;*/
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    /* height: 20px; */
+    border-radius: 3px;
+}
+
+/* .resizable {
+    overflow: hidden;
+    resize: both;
+    border: 1px solid #e8eaed;
+    min-width: 100px; 
+    padding: 4px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } */
+.resizable {
+    resize: horizontal;
+    overflow: hidden;
+    cursor: col-resize;
+}
+
+.table-cell[contentEditable="true"]:focus {
+    outline: none;
+}
+
+
+.mytableformat {
+    overflow-y: auto;
+    max-height: calc(100vh - 215px);
+}
+
+.table-header .table-cell {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #656f7d !important;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Apple Color Emoji", "Arial", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+.table-body .table-cell {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 13.5px;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-right: 2px;
+    padding: 5px 5px 6px;
+    border-radius: 4px;
+    color: #656f7d !important;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Apple Color Emoji", "Arial", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+
+    .table-body .table-cell.tablelastName,
+    .table-cell.tablelastName .formateDateTime {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 11px;
+        font-weight: 400;
+        cursor: pointer;
+        line-height: 1.5;
+        margin-right: 2px;
+        padding: 5px 5px 0px;
+        border-radius: 4px;
+        color: #343434 !important;
+        font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Apple Color Emoji", "Arial", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+    }
+
+
+.table-header .table-cell.tablelastName {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 11px;
+    text-transform: capitalize !important;
+    font-weight: 400;
+    cursor: pointer;
+    line-height: 1.5;
+    margin-right: 2px;
+    padding: 5px 5px 0px;
+    border-radius: 4px;
+    color: #656f7d !important;
+    font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Helvetica", "Apple Color Emoji", "Arial", sans-serif, "Segoe UI Emoji", "Segoe UI Symbol" !important;
+}
+.mytaskContainer {
+    /* display: flex; */
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    will-change: transform;
+    box-sizing: border-box !important;
+}
+
+
+/*otr screen css */
+.otrHeightscroll .taskBoxFeatureOuter {
+    height: 45vh;
+    overflow-y: auto;
+}
+.otrHeightscroll #chat-activity {
+    height: 30vh;
+    overflow-y: scroll;
+}
